@@ -115,7 +115,10 @@ def test_severity_agent_rates_acme_trucking_high():
         covered=True,
         policy_in_force=True,
         exclusions_triggered=[],
-        reasoning="Policy in force on loss date; loss falls within covered perils (rollover, cargo loss, collision).",
+        reasoning=(
+            "Policy in force on loss date; loss falls within covered perils "
+            "(rollover, cargo loss, collision)."
+        ),
         confidence=0.95,
     )
     state = TriageState(raw_fnol="...", intake=intake, coverage=coverage)
@@ -187,8 +190,7 @@ def test_recommendation_for_high_severity_covered_claim_routes_to_specialist():
     severity = SeverityAssessment(
         severity="high",
         rationale=(
-            "Bodily injury with hospitalisation; cargo loss over USD 250k; "
-            "third-party involvement."
+            "Bodily injury with hospitalisation; cargo loss over USD 250k; third-party involvement."
         ),
         indicators=[
             "bodily injury with hospitalisation",
@@ -197,9 +199,7 @@ def test_recommendation_for_high_severity_covered_claim_routes_to_specialist():
         ],
         confidence=0.92,
     )
-    state = TriageState(
-        raw_fnol="...", intake=intake, coverage=coverage, severity=severity
-    )
+    state = TriageState(raw_fnol="...", intake=intake, coverage=coverage, severity=severity)
     result = recommendation_agent(state)
 
     assert result.recommendation is not None
@@ -242,9 +242,7 @@ def test_recommendation_for_low_severity_covered_claim_fast_tracks():
         ],
         confidence=0.98,
     )
-    state = TriageState(
-        raw_fnol="...", intake=intake, coverage=coverage, severity=severity
-    )
+    state = TriageState(raw_fnol="...", intake=intake, coverage=coverage, severity=severity)
     result = recommendation_agent(state)
 
     assert result.recommendation is not None

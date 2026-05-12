@@ -42,6 +42,23 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP", "B"]
 
+[tool.ruff.lint.per-file-ignores]
+# agents.py contains long-form system prompt strings; splitting them is more
+# trouble than the lint value
+"src/claims_triage/agents.py" = ["E501"]
+
+[[tool.mypy.overrides]]
+module = ["langgraph.*", "langchain_anthropic.*", "langchain_core.*"]
+ignore_missing_imports = true
+
+# agents.py uses ChatAnthropic(model=...) and with_structured_output(include_raw=True).
+# Both have imprecise upstream stubs (model arg flagged as unknown; the
+# include_raw response is typed dict|BaseModel even though it's always a dict).
+# Real bugs in this file still surface via other error codes.
+[[tool.mypy.overrides]]
+module = ["claims_triage.agents"]
+disable_error_code = ["call-arg", "index"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]

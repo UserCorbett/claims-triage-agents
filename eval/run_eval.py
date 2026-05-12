@@ -67,18 +67,22 @@ def _print_report(results: list[CaseResult]) -> None:
     widths = [fixture_col_width, 10, 10, 10, 10]
 
     def _row(cells: list[str]) -> str:
-        return " | ".join(c.ljust(w) for c, w in zip(cells, widths))
+        return " | ".join(c.ljust(w) for c, w in zip(cells, widths, strict=True))
 
     print(_row(headers))
     print("-" * (sum(widths) + 3 * (len(widths) - 1)))
     for r in results:
-        print(_row([
-            r.fixture,
-            _cell(r.coverage_pass),
-            _cell(r.severity_pass),
-            _cell(r.action_pass),
-            _cell(r.overall_pass),
-        ]))
+        print(
+            _row(
+                [
+                    r.fixture,
+                    _cell(r.coverage_pass),
+                    _cell(r.severity_pass),
+                    _cell(r.action_pass),
+                    _cell(r.overall_pass),
+                ]
+            )
+        )
 
     failures = [r for r in results if not r.overall_pass]
     if failures:

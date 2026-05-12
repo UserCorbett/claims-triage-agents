@@ -7,7 +7,7 @@ call, and returns a new state with its own field populated plus an
 
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
@@ -66,7 +66,7 @@ Be conservative. If something isn't in the text, do not infer it from general kn
 
 def intake_agent(state: TriageState) -> TriageState:
     """Extract a structured ``ClaimIntake`` from ``state.raw_fnol``."""
-    started_at = datetime.now(timezone.utc).isoformat()
+    started_at = datetime.now(UTC).isoformat()
 
     structured_llm = _llm.with_structured_output(ClaimIntake, include_raw=True)
     response = structured_llm.invoke(
@@ -82,7 +82,7 @@ def intake_agent(state: TriageState) -> TriageState:
     tokens_in = int(usage.get("input_tokens", 0) or 0)
     tokens_out = int(usage.get("output_tokens", 0) or 0)
 
-    finished_at = datetime.now(timezone.utc).isoformat()
+    finished_at = datetime.now(UTC).isoformat()
 
     trace_entry = AgentTrace(
         agent_name="intake",
@@ -113,7 +113,7 @@ Be conservative. If you genuinely cannot tell whether something is covered, set 
 def coverage_agent(state: TriageState) -> TriageState:
     """Decide whether ``state.intake`` is covered by its referenced policy."""
     assert state.intake is not None, "coverage_agent requires state.intake to be populated"
-    started_at = datetime.now(timezone.utc).isoformat()
+    started_at = datetime.now(UTC).isoformat()
     policy = get_policy(state.intake.policy_number)
 
     if policy is None:
@@ -144,7 +144,7 @@ def coverage_agent(state: TriageState) -> TriageState:
         tokens_in = int(usage.get("input_tokens", 0) or 0)
         tokens_out = int(usage.get("output_tokens", 0) or 0)
 
-    finished_at = datetime.now(timezone.utc).isoformat()
+    finished_at = datetime.now(UTC).isoformat()
 
     trace_entry = AgentTrace(
         agent_name="coverage",
@@ -180,7 +180,7 @@ def severity_agent(state: TriageState) -> TriageState:
     """Assess severity given ``state.intake`` and ``state.coverage``."""
     assert state.intake is not None, "severity_agent requires state.intake"
     assert state.coverage is not None, "severity_agent requires state.coverage"
-    started_at = datetime.now(timezone.utc).isoformat()
+    started_at = datetime.now(UTC).isoformat()
 
     human_message = (
         f"Claim intake (JSON):\n{state.intake.model_dump_json(indent=2)}\n\n"
@@ -199,7 +199,7 @@ def severity_agent(state: TriageState) -> TriageState:
     tokens_in = int(usage.get("input_tokens", 0) or 0)
     tokens_out = int(usage.get("output_tokens", 0) or 0)
 
-    finished_at = datetime.now(timezone.utc).isoformat()
+    finished_at = datetime.now(UTC).isoformat()
 
     trace_entry = AgentTrace(
         agent_name="severity",
@@ -236,7 +236,7 @@ def recommendation_agent(state: TriageState) -> TriageState:
     """Recommend the next action given all upstream agent outputs."""
     assert state.intake is not None, "recommendation_agent requires state.intake"
     assert state.coverage is not None, "recommendation_agent requires state.coverage"
-    started_at = datetime.now(timezone.utc).isoformat()
+    started_at = datetime.now(UTC).isoformat()
 
     if state.severity is not None:
         severity_block = state.severity.model_dump_json(indent=2)
@@ -261,7 +261,7 @@ def recommendation_agent(state: TriageState) -> TriageState:
     tokens_in = int(usage.get("input_tokens", 0) or 0)
     tokens_out = int(usage.get("output_tokens", 0) or 0)
 
-    finished_at = datetime.now(timezone.utc).isoformat()
+    finished_at = datetime.now(UTC).isoformat()
 
     trace_entry = AgentTrace(
         agent_name="recommendation",
