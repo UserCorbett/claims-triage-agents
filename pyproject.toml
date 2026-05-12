@@ -44,5 +44,5 @@ select = ["E", "F", "I", "N", "W", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 markers = ["integration: tests that require ANTHROPIC_API_KEY"]

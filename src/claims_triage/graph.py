@@ -46,9 +46,11 @@ def build_graph() -> Any:
     return graph.compile()
 
 
+_GRAPH = build_graph()
+
+
 def triage(raw_fnol: str) -> TriageState:
     """Run the full triage pipeline on a raw FNOL string."""
-    graph = build_graph()
     initial_state = TriageState(raw_fnol=raw_fnol)
-    result = graph.invoke(initial_state)
+    result = _GRAPH.invoke(initial_state)
     return TriageState(**result) if isinstance(result, dict) else result
