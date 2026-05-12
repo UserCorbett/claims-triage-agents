@@ -1,0 +1,16 @@
+cases:
+  - fixture: tests/fixtures/fnol_high_severity.json
+    expected:
+      coverage_covered: true
+      severity: high
+      recommended_action: route_to_specialist
+  - fixture: tests/fixtures/fnol_low_severity.json
+    expected:
+      coverage_covered: true
+      severity: low
+      recommended_action: fast_track
+  - fixture: tests/fixtures/fnol_no_coverage.json
+    expected:
+      coverage_covered: false
+      severity: null
+      recommended_action: decline_with_explanation

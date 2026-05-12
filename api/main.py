@@ -11,7 +11,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from claims_triage.graph import triage
+from claims_triage.logging_config import configure_logging
 from claims_triage.state import TriageState
+
+configure_logging()
 
 
 class TriageRequest(BaseModel):

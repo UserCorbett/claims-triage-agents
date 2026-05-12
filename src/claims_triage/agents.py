@@ -5,6 +5,7 @@ call, and returns a new state with its own field populated plus an
 ``AgentTrace`` appended.
 """
 
+import logging
 import os
 from datetime import datetime, timezone
 
@@ -26,6 +27,25 @@ load_dotenv()
 CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5-20250929")
 
 _llm = ChatAnthropic(model=CLAUDE_MODEL)
+
+logger = logging.getLogger("claims_triage.agents")
+
+
+def _emit_log(trace_entry: AgentTrace) -> None:
+    """Emit one ``agent_completed`` log line from a freshly-built AgentTrace."""
+    start_dt = datetime.fromisoformat(trace_entry.started_at_iso)
+    end_dt = datetime.fromisoformat(trace_entry.finished_at_iso)
+    duration_ms = int((end_dt - start_dt).total_seconds() * 1000)
+    logger.info(
+        "agent_completed",
+        extra={
+            "agent_name": trace_entry.agent_name,
+            "tokens_in": trace_entry.tokens_in,
+            "tokens_out": trace_entry.tokens_out,
+            "duration_ms": duration_ms,
+            "output_summary": trace_entry.output_summary,
+        },
+    )
 
 
 INTAKE_SYSTEM_PROMPT = """You are the intake agent in an insurance claims triage system. You are given the raw text of a first-notification-of-loss (FNOL) — the message an insurer receives when a new claim is opened. Your job is to extract structured fields from that text.
@@ -74,6 +94,7 @@ def intake_agent(state: TriageState) -> TriageState:
         tokens_out=tokens_out,
     )
 
+    _emit_log(trace_entry)
     return state.model_copy(update={"intake": parsed, "trace": [*state.trace, trace_entry]})
 
 
@@ -135,6 +156,7 @@ def coverage_agent(state: TriageState) -> TriageState:
         tokens_out=tokens_out,
     )
 
+    _emit_log(trace_entry)
     return state.model_copy(update={"coverage": decision, "trace": [*state.trace, trace_entry]})
 
 
@@ -189,6 +211,7 @@ def severity_agent(state: TriageState) -> TriageState:
         tokens_out=tokens_out,
     )
 
+    _emit_log(trace_entry)
     return state.model_copy(update={"severity": assessment, "trace": [*state.trace, trace_entry]})
 
 
@@ -253,6 +276,7 @@ def recommendation_agent(state: TriageState) -> TriageState:
         tokens_out=tokens_out,
     )
 
+    _emit_log(trace_entry)
     return state.model_copy(
         update={"recommendation": recommendation, "trace": [*state.trace, trace_entry]}
     )

@@ -15,6 +15,9 @@ import sys
 from pathlib import Path
 
 from claims_triage.graph import triage
+from claims_triage.logging_config import configure_logging
+
+configure_logging()
 
 
 def main() -> int:
