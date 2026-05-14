@@ -1,16 +1,16 @@
 # claims-triage-agents
 
-> A small but working multi-agent system that triages a first-notification-of-loss through specialist agents — intake, coverage, severity, recommendation — built with LangGraph and Python. Deliberate stack-closing exercise; not a production system.
+> A small but working multi-agent system that triages a first-notification-of-loss through specialist agents intake, coverage, severity, recommendation built with LangGraph and Python. Deliberate stack-closing exercise; not a production system.
 
 ---
 
 ## Why this repo exists
 
-I'm applying for a Senior AI Engineer role at Aviva. My background is unusual for the title: six years as a Claims Analyst at Marsh McLennan, where I contributed to the rollout of LenAI — Marsh McLennan's enterprise generative AI assistant, used across 90,000+ employees and independently credited (Oliver Wyman, Rubrik) with saving over 1 million team hours in its first year. I now run a one-person e-commerce operation built on LLM-based agents.
+I'm applying for a Senior AI Engineer role at Aviva. My background is unusual for the title: six years as a Claims Analyst at Marsh McLennan, where I contributed to the rollout of LenAI, Marsh McLennan's enterprise generative AI assistant, used across 90,000+ employees and independently credited (Oliver Wyman, Rubrik) with saving over 1 million team hours in its first year. I now run a one-person e-commerce operation built on LLM-based agents.
 
 What I don't have on paper is a decade of production Python and AWS. What I do have is rare: I've been inside a large-scale enterprise GenAI rollout in a regulated industry, and I'm closing the engineering gap deliberately.
 
-This repo is the evidence of that close. It's small. It's honest about its limits. And it does something that matters: it shows I can specify, build, test, and ship a working agentic system in the domain I know best — insurance claims.
+This repo is the evidence of that close. It's small. It's honest about its limits. And it does something that matters: it shows I can specify, build, test, and ship a working agentic system in the domain I know best, insurance claims.
 
 If the work product matters more to you than the job title on the CV, read on.
 
@@ -18,7 +18,7 @@ If the work product matters more to you than the job title on the CV, read on.
 
 ## What it does
 
-Given a raw first-notification-of-loss (FNOL) — the message an insurer receives when a claim is opened — the system routes it through four specialist agents and produces a structured recommendation.
+Given a raw first-notification-of-loss (FNOL), the message an insurer receives when a claim is opened, the system routes it through four specialist agents and produces a structured recommendation.
 
 ```mermaid
 flowchart LR
@@ -69,7 +69,7 @@ Each agent is a focused LLM call with a tight Pydantic-typed output. The graph i
 | Orchestration | LangGraph | Named in the Aviva JD; gives explicit state machine semantics, conditional edges, and clean separation of agents |
 | Models | Anthropic API (`claude-sonnet-4-7`) | Fast, structured outputs reliable; cost-effective for this volume |
 | State | Pydantic | Type-safe state propagation; structured outputs enforced |
-| Logging | Standard library + JSON formatter | Every agent invocation produces a structured log line — token usage, latency, decision, confidence |
+| Logging | Standard library + JSON formatter | Every agent invocation produces a structured log line: token usage, latency, decision, confidence |
 | API | FastAPI | Idiomatic Python web framework; ASGI-ready for Lambda or container deployment |
 | Tests | pytest | Smoke tests on fixtures; eval harness for end-to-end |
 | Infra | Terraform stub | AWS Lambda + API Gateway pattern; structurally credible, not deployed |
@@ -120,7 +120,7 @@ python eval/run_eval.py
 
 A senior engineer reading this will spot what's missing. To save you the time:
 
-- **No real deployment.** The Terraform under `infra/` is a stub — it's structurally a Lambda + API Gateway + IAM setup, but I haven't run it. The point is to show I understand the deployment shape, not to claim I've shipped to production AWS.
+- **No real deployment.** The Terraform under `infra/` is a stub, it's structurally a Lambda + API Gateway + IAM setup, but I haven't run it. The point is to show I understand the deployment shape, not to claim I've shipped to production AWS.
 - **No real policies.** `policies.py` is a small synthetic library. Real coverage logic in a real insurer would hit policy admin systems and have a hundred edge cases this doesn't.
 - **No human-in-the-loop UI.** Every triage system needs one in production. Out of scope here.
 - **No production-grade observability.** Structured JSON logs only; no OpenTelemetry, no traces, no LangSmith integration. Easy to add; deliberate omission for v1.
@@ -133,8 +133,8 @@ What this repo *is*: a credible, working demonstration that I can specify, build
 
 ## What I'd build next, given a week
 
-1. Replace the synthetic policy library with a small RAG layer over a corpus of policy wordings — chunking strategy matters
-2. Add LangSmith integration for trace observability — the JD's "monitoring and observability in production systems" line
+1. Replace the synthetic policy library with a small RAG layer over a corpus of policy wordings chunking strategy matters
+2. Add LangSmith integration for trace observability the JD's "monitoring and observability in production systems" line
 3. Add a human-in-the-loop checkpoint between severity and recommendation for high-severity claims
 4. Replace the Terraform stub with an actual deployment; add a CI workflow that runs eval on PRs and fails the build if scores drop
 5. Add a small evaluation harness with LLM-as-judge for the recommendation quality
@@ -143,7 +143,7 @@ What this repo *is*: a credible, working demonstration that I can specify, build
 
 ## What LenAI taught me
 
-The standalone document — [LESSONS_FROM_LENAI.md](LESSONS_FROM_LENAI.md) — is the part of this repo I'd point a hiring manager at first. It's the genuinely rare thing I bring: lessons from being inside a 90k-user enterprise GenAI rollout in a regulated industry, written for a team about to do similar work.
+The standalone document   [LESSONS_FROM_LENAI.md](LESSONS_FROM_LENAI.md)   is the part of this repo I'd point a hiring manager at first. It's the genuinely rare thing I bring: lessons from being inside a 90k-user enterprise GenAI rollout in a regulated industry, written for a team about to do similar work.
 
 ---
 
@@ -157,4 +157,4 @@ Six years at Marsh McLennan on Fortune 500 casualty and property claims. CII mem
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Use it however you like.
+MIT   see [LICENSE](LICENSE). Use it however you like.
