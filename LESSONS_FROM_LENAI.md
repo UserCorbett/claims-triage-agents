@@ -1,101 +1,57 @@
 # Lessons from the LenAI rollout
 
-> A note for Aviva's GenAI platform team, from someone who was inside a 90,000-user enterprise GenAI rollout.
+> A note from someone who was on the floor at Marsh McLennan during the rollout of LenAI the firm's enterprise generative AI assistant, used across 90,000+ employees and independently credited (Oliver Wyman, Rubrik) with saving over 1 million team hours in its first year.
 
-LenAI is Marsh McLennan's enterprise generative AI assistant. It rolled out across 90,000+ employees and was independently credited by Oliver Wyman and Rubrik with saving over 1 million team hours in its first year. I contributed to the rollout during my final two years at Marsh McLennan as a Claims Analyst.
+LenAI is Marsh McLennan's enterprise generative AI assistant. I contributed to its rollout during my final two years at Marsh McLennan as a Claims Analyst, including delivering training to Claims Ops in Norwich while still carrying my own caseload.
 
-I'm writing these down because they're the kind of lessons you only get from being in the room — and they're the rarest thing I bring to an AI engineering role. Most of them are not about the model.
-
----
-
-> **NOTE TO LEON: This is a template. The 10 prompts below are the kinds of lessons that would carry weight on an Aviva application — but they need to be *yours*, in your words, from what you actually saw at Marsh. Don't write what you think hiring managers want to hear. Write what you actually noticed. The credibility comes from specificity.**
->
-> **For each one: 3–6 sentences. Pick one concrete moment or pattern. If you can't think of a real example for a prompt, cut it — better to have 6 honest lessons than 10 generic ones. Delete this whole NOTE block before you commit.**
+These are four observations from that vantage point. They are not Marsh McLennan's official position, and they are not a complete picture of the programme. They are the things I noticed from a seat that was close enough to the rollout to help shape it, and close enough to the floor to see what wasn't landing.
 
 ---
 
 ## 1. Adoption is harder than capability
 
-*Prompt: When did you realise the model working wasn't the same as people using it well? What did that look like in practice — which teams adopted naturally, which didn't, and what changed the dial?*
+On the Norwich claims floor, LenAI was used eagerly in the first weeks and then dropped off sharply. Speaking with the team, the picture was consistent: people thought it was helpful but they hadn't built it into their daily work.
 
-[Your lesson here.]
+Two things were happening underneath. First, the team were prompting badly asking for whole-policy breakdowns rather than the specific question they actually needed answering (an exclusion, a limit, a date). The tool's answers were technically correct but too long to be useful inside a working day. Second and less obviously, there was a risk-mindset hangover. In the months before LenAI launched, the firm had allowed public ChatGPT use *only* on the strict condition that no internal or client data could ever be entered. By the time LenAI arrived with the right trust scaffolding in place, colleagues were still in the old mindset. The tool that *could* take their data was being treated like the tool that couldn't.
 
----
+By that point I'd been pulled into the development team's training workstream while still carrying my claims caseload, which gave me an unusual vantage point close enough to the rollout to help shape the response, close enough to the floor to see what wasn't landing. The fix that worked was hand-holding: walking colleagues through uploading their own working documents in the GenAI Academy sessions, and following up with internal comms that made the changed rules explicit. Uptake recovered.
 
-## 2. The first 30 days set the tone
-
-*Prompt: What happened to users whose first week with LenAI went badly? Did they come back? What was the cost — to them, and to the rollout — of a bad first impression?*
-
-[Your lesson here.]
+The takeaway: the hardest part of an enterprise GenAI rollout isn't shipping the tool. It's un-learning the rules from before. The harder the prior compliance posture, the more deliberate the relearning has to be and a lot of that work happens in the gap between training and lived practice, where people decide whether the new rules really apply to them.
 
 ---
 
-## 3. The use cases that mattered weren't the ones we predicted
+## 2. The use cases that mattered weren't always the ones we predicted
 
-*Prompt: What did you see people actually use LenAI for that wasn't in any pre-rollout slide? What does that mean for how Aviva should plan its rollout?*
+The teams we expected to adopt LenAI fastest did. Anywhere with high-volume, data-heavy work that pulled from multiple documents picked the tool up quickly and used it. That was the easy bit and it matched the rollout prediction.
 
-[Your lesson here.]
+What surprised us was where the deeper return-on-time was happening. The standout was aviation certification. Every aircraft, spare engine, and certain other parts are required to have an insurance certificate before flight, and some aviation clients renew thousands of certificates a year. The Norwich aviation cert team was small but their document output across operations was second only to one team roughly ten times their size. With LenAI integrated into their workflow, that gap narrowed fast.
 
----
+The pattern became clear in retrospect: high-volume teams were using LenAI for many small tasks across the day. Smaller teams were using it for one or two tasks every few minutes, and that compounded. A focused, disciplined use of the tool produced more output per head than a broad, exploratory one.
 
-## 4. In a regulated industry, the compliance layer is not after-the-fact
-
-*Prompt: At Marsh, you worked with FCA-regulated insurance data. What did the rollout team have to get right about compliance, data handling, or audit that an engineer who hasn't worked in regulated industries would underestimate?*
-
-[Your lesson here.]
+The takeaway: the most valuable uses don't appear in any pre-rollout deck because they aren't visible until people have lived with the tool for a few weeks and stopped using it the way the rollout assumed they would. Measuring adoption by raw usage misses the teams that have figured out one thing and got disciplined about it.
 
 ---
 
-## 5. Power users and casual users are two different products
+## 3. Power users and casual users are two different products
 
-*Prompt: Who in your team became a LenAI power user, and what did they do differently? What did casual users need that power users didn't, and vice versa?*
+The fastest LenAI power users were the ones already using ChatGPT before the rollout. They saved prompts when they noticed themselves reusing a phrasing, and they concentrated on one or two big time-saving tasks rather than spraying the tool across many small ones. The discipline wasn't technical, it was workflow-shaped they'd identified where LenAI made the biggest difference and built a routine around it. The same users were quickest to outgrow chatbot-mode and start asking for LenAI to have access to the systems they used every day, to pull data directly rather than have it pasted in. They didn't want a better assistant; they wanted a platform.
 
-[Your lesson here.]
+Casual users were a different problem. Their barrier wasn't compliance or workflow it was the blank box. Opening LenAI to an empty prompt with no hint of what to ask left a lot of colleagues unsure where to start, and a fair number never came back. A landing screen with a few example prompts, framed around the kind of work the user actually did, dropped the threshold significantly. Casual users don't want to learn prompt-craft; they want a starting point.
 
----
-
-## 6. Training is not education
-
-*Prompt: What's the difference between teaching someone to click the right buttons in LenAI and teaching them how to think about when to use it? Where did Marsh do this well? Where did it not?*
-
-[Your lesson here.]
+Two social patterns mattered as much as anything in the product. Peer teaching outpaced formal training quickly colleagues who'd figured the tool out became the people their team turned to for prompt help, faster and more useful than the next academy session. And the younger or less confident colleagues found there was no social cost to asking LenAI things they wouldn't have asked a senior basic policy questions, "is this how I'd phrase this", "what's the difference between X and Y" the kind of question someone in their first claims job hesitates to take up a senior's time with. The tool was, for that population, an unjudgemental colleague.
 
 ---
 
-## 7. Observability matters because users will surprise you
+## 4. Training is not education
 
-*Prompt: What did Marsh learn from looking at actual LenAI usage data that it couldn't have anticipated? What's the equivalent thing Aviva will want to be measuring from day one?*
+The first thing I found myself teaching that wasn't in the deck was the most basic and the most overlooked: 'treat LenAI like a tool, not a person.' Colleagues writing prompts like emails "Hi, could you possibly help me with…" were getting answers that were polite but slow to surface the useful bit. Drop the niceties. Be direct. Say what you want, in the order you want it. I'd been using LLMs for years before the rollout and even I had to be told this the social instinct to be polite to something that talks back is stronger than people realise. The training deck assumed people would arrive understanding the tool was software. Most didn't.
 
-[Your lesson here.]
+The second thing was a harder lesson: **the data is only as good as what the colleague puts in.** The clearest example I saw on the floor was a colleague who uploaded the wrong policy document and got back a confident, accurate answer to the wrong question. The output was technically correct; it just had nothing to do with the claim they were actually working on. The tool didn't flag the mismatch because it couldn't know there was one. What it *did* do, several prompts later, was pick up from context that the user was referring to a different policy than the one they'd uploaded which is impressive, but is exactly the kind of behaviour that builds false confidence in users who don't yet understand its limits.
 
----
+That second example is the whole training-vs-education distinction in one moment. Training would have shown that colleague how to upload a document. Education is teaching them to ask, before trusting the answer, *did I give it the right document?* and to keep asking that even when the answer sounds right. The first is a slide. The second is built over weeks of use, peer conversation, and watching the tool be confidently wrong about something you happen to know well. The GenAI Academy got better at this over time, partly because the rollout team got better at noticing where colleagues were getting tripped up. But the gap between "knows the buttons" and "knows when to trust the output" is the one that determined whether someone became a useful long-term user or a sporadic one.
 
-## 8. Internal champions are gold
-
-*Prompt: Who were the people who quietly drove LenAI adoption in their teams — not because they were told to, but because they got it? How did the rollout team find them and amplify them?*
-
-[Your lesson here.]
+The takeaway: training gets people across the threshold. Education is what makes the difference between a tool that produces hours-saved and a tool that produces hours-saved-without-introducing-new-risk. The first is measurable on day one; the second only becomes visible after the system has been in regulated hands for a while, and it doesn't transfer through a slide deck.
 
 ---
-
-## 9. "Hours saved" is the headline; the deeper value is in better outputs
-
-*Prompt: When Oliver Wyman and Rubrik credited LenAI with saving 1M+ team hours, what else was happening that didn't make the press? What got better in the work itself?*
-
-[Your lesson here.]
-
----
-
-## 10. The model isn't the bottleneck; the workflow integration is
-
-*Prompt: At Marsh, where did LenAI hit friction with existing systems and processes? What does that imply about where Aviva should put engineering effort vs. model effort?*
-
-[Your lesson here.]
-
----
-
-## A note on what this isn't
-
-These lessons are my own. They reflect my view from the Claims Analyst seat and the conversations I had during the rollout — not Marsh McLennan's official position, and not a complete picture of the programme. I share them because they're the kind of practical, on-the-ground knowledge that's genuinely hard to come by, and because I think they'd be useful to a team about to do similar work.
 
 — Leon
