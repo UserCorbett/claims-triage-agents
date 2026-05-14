@@ -6,7 +6,7 @@
 
 ## Why this repo exists
 
-I'm applying for a Senior AI Engineer role at Aviva. My background is unusual for the title: six years as a Claims Analyst at Marsh McLennan, where I contributed to the rollout of LenAI, Marsh McLennan's enterprise generative AI assistant, used across 90,000+ employees and independently credited (Oliver Wyman, Rubrik) with saving over 1 million team hours in its first year. I now run a one-person e-commerce operation built on LLM-based agents.
+My background is unusual for the title: six years as a Claims Analyst at Marsh McLennan, where I contributed to the rollout of LenAI, Marsh McLennan's enterprise generative AI assistant, used across 90,000+ employees and independently credited (Oliver Wyman, Rubrik) with saving over 1 million team hours in its first year. I now run a one-person e-commerce operation built on LLM-based agents.
 
 What I don't have on paper is a decade of production Python and AWS. What I do have is rare: I've been inside a large-scale enterprise GenAI rollout in a regulated industry, and I'm closing the engineering gap deliberately.
 
